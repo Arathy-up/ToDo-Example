@@ -68,7 +68,7 @@ class _ToDoAppEgState extends State<ToDoAppEg> {
           child: Text("Submit"),),
           ListView.builder(
             shrinkWrap: true,
-            itemCount: book.length,
+            itemCount: book.length==null? 0: book.length,
               itemBuilder: (context,index){
             return Card(
               elevation: 2.0,
@@ -76,7 +76,15 @@ class _ToDoAppEgState extends State<ToDoAppEg> {
                 leading: Icon(Icons.book),
                 title: Text("Book:"+book[index]),
                 subtitle: Text("Author:"+author[index]+"\n"+"Price:"+price[index]),
-                trailing: Icon(Icons.delete),
+                trailing: GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      book.removeAt(index);
+                      author.removeAt(index);
+                      price.removeAt(index);
+                    });
+                  },
+                    child: Icon(Icons.delete)),
               ),
             );
           }),
